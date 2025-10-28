@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Canvas Animaciones</title>
+    <style>
+        #miCanvas
+        {
+            border: dotted 2px yellow;
+            background: green;
+        }
+    </style>
+</head>
+<body onload="dibujar();">
+    <canvas id="miCanvas" width="400" height="300">
+    </canvas>
+    <script>
+        function dibujar() 
+        {
+            const canvas = document.getElementById("miCanvas");
+            if (canvas.getContext) 
+            {
+                const ctx = canvas.getContext("2d");
+                
+                // OPCIÓN 1: Solo animación lineal (descomenta esta sección)
+                /*
+                let x = 0;
+                const speed = 2;
+                
+                function animate() {
+                    ctx.clearRect(0, 0, canvas.width, canvas.height);
+                    ctx.fillStyle = "blue";
+                    ctx.fillRect(x, 50, 20, 20);
+                    x = x + speed;
+                    requestAnimationFrame(animate);
+                }
+                requestAnimationFrame(animate);
+                */
+                
+                // OPCIÓN 2: Solo animación diagonal (esta está activa)
+                let x = 50;
+                let y = 50;
+                let speedX = 3;
+                let speedY = 3;
+                
+                function animateDiagonal() {
+                    ctx.clearRect(0, 0, canvas.width, canvas.height);
+                    ctx.fillStyle = "red";
+                    ctx.fillRect(x, y, 20, 20);
+                    x += speedX;
+                    y += speedY;
+                    
+                    if (x + 20 > canvas.width || x < 0) {
+                        speedX = -speedX;
+                    }
+                    if (y + 20 > canvas.height || y < 0) {
+                        speedY = -speedY;
+                    }
+                    requestAnimationFrame(animateDiagonal);
+                }
+                requestAnimationFrame(animateDiagonal);
+            }
+        }
+    </script>
+</body>
+</html>
